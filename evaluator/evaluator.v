@@ -2,7 +2,7 @@ module evaluator
 import object
 import ast
 
-pub fn eval(node ast.Node, mut env object.Environment) object.Object {
+pub fn eval(node ast.Node, mut env object.Env) object.Object {
 	match node {
 		ast.ExpressionStmt { return eval(node.expression, mut env) }
 		ast.LetStatement { return eval_let_stmt(node, mut env) }
@@ -17,7 +17,7 @@ pub fn eval(node ast.Node, mut env object.Environment) object.Object {
 	}
 }
 
-pub fn eval_program(node ast.Program, mut env object.Environment) object.Object {
+pub fn eval_program(node ast.Program, mut env object.Env) object.Object {
 	mut result := new_result(object.None{})
 	for _, stmt in node.statements {
 		result.value = eval(stmt, mut env)

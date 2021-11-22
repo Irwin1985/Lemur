@@ -12,9 +12,13 @@ pub fn start() {
 	debug := false
 	// DEBUGING PURPOSE
 
-	mut env := &object.Environment{
+	/*
+	mut env := &object.Env{
 		store: map[string]object.Object,
+		outer: object.Empty{},
 	}
+	*/
+	mut env := object.new_environment()
 	for {
 		print(prompt)
 		input := os.get_line()

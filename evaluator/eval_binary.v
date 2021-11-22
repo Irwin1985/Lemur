@@ -2,7 +2,7 @@ module evaluator
 import object
 import ast
 
-fn eval_binary(node ast.Binary, mut env object.Environment) object.Object {
+fn eval_binary(node ast.Binary, mut env object.Env) object.Object {
 	left := eval(node.left, mut env)
 	if left is object.RuntimeError {
 		return left
