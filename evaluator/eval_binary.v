@@ -2,12 +2,12 @@ module evaluator
 import object
 import ast
 
-fn eval_binary(node ast.Binary, mut env object.Env) object.Object {
-	left := eval(node.left, mut env)
+fn eval_binary(node ast.Binary, mut storage object.Storage) object.Object {
+	left := eval(node.left, mut storage)
 	if left is object.RuntimeError {
 		return left
 	}
-	right := eval(node.right, mut env)
+	right := eval(node.right, mut storage)
 	if right is object.RuntimeError {
 		return right
 	}

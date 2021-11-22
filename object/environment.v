@@ -1,43 +1,23 @@
 module object
 
-pub struct Empty {}
-pub struct Env {
+pub struct Environment {
 	pub mut:
 		store map[string]Object
-		outer Environment
+		outer int // puntero al environment alojado en EnvStack
 }
 
-type Environment = Env | Empty
-
-pub fn new_environment() &Env {
-	return &Env{
+// Crea un environment sin parent
+pub fn new_environment() &Environment {
+	return &Environment{
 		store: map[string]Object,
-		outer: Empty{},
+		outer: 0,
 	}
 }
+// Crea un environment y le agrega de padre 
+// al environment contenido en Storage.env
+pub fn new_enclosed_environment(mut s Storage) &Environment {
+	mut new_env := new_environment()
+	new_env.outer = s.stack.set_env(s.env)
 
-pub fn new_enclosed_environment(mut outer Env) &Env {
-	return &Env {
-		store: map[string]Object,
-		outer: outer,
-	}
-}
-
-pub fn set(mut e Env, name string, value Object) Object {
-	e.store[name] = value
-	return value
-}
-
-pub fn get(mut e Env, name string) Object {
-	if obj := e.store[name] {
-		return obj
-	} else {
-		match e.outer {
-			Empty{ return None{} }
-			Env { 
-				result := get(mut e, name) 
-				return result
-			}
-		}
-	}
+	return new_env
 }
