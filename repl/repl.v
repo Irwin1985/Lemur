@@ -13,22 +13,6 @@ pub fn start() {
 	// DEBUGING PURPOSE
 
 	mut storage := object.new_storage()
-	mut children := object.new_enclosed_environment(mut storage)
-
-	// 
-	num1 := object.Integer{value: 10}
-	num2 := object.Integer{value: 20}
-	num3 := object.Integer{value: 30}
-	num4 := object.Integer{value: 40}
-
-	storage.set("a", num1)
-	storage.set("b", num2)
-
-	storage.env = children
-
-	storage.set("c", num3)
-	storage.set("d", num4)
-	// 
 	for {
 		print(prompt)
 		input := os.get_line()

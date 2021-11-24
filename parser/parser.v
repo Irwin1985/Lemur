@@ -65,6 +65,7 @@ fn (mut p Parser) register_unary_functions() {
 	p.unary_fns[.tt_false] = parse_boolean		// BOOLEAN => false
 	p.unary_fns[.tt_string] = parse_string		// STRING => "foo"
 	p.unary_fns[.tt_lparen] = parse_grouped_exp // LPAREN exp RPAREN
+	p.unary_fns[.tt_function] = parse_function_literal // fun(x, y)
 }
 
 fn (mut p Parser) register_binary_functions() {
@@ -76,6 +77,7 @@ fn (mut p Parser) register_binary_functions() {
 	p.binary_fns[.tt_not_eq] = parse_binary
 	p.binary_fns[.tt_lt] = parse_binary
 	p.binary_fns[.tt_gt] = parse_binary
+	p.binary_fns[.tt_lparen] = parse_function_call
 }
 
 fn (mut p Parser) next_token() {
@@ -130,6 +132,25 @@ fn (mut p Parser) parse_expression(precedence int) &ast.Node {
 	}
 
 	return left_exp
+}
+
+fn (mut p Parser) parse_expression_list(end token.TokenType) []ast.Node {
+	mut list := []ast.Node{}
+	
+	if p.cur_token_is(end) {
+		p.next_token()
+		return list
+	}
+	
+	list << p.parse_expression(lowest)
+
+	for p.cur_token_is(.tt_comma) {
+		p.next_token() // advance comma
+		list << p.parse_expression(lowest)
+	}
+	
+	p.expect(end, "expected closing delimiter.")
+	return list
 }
 
 
