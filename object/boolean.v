@@ -2,7 +2,7 @@ module object
 
 
 pub struct Boolean {
-	mut:
+	pub mut:
 		value bool
 }
 

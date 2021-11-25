@@ -50,6 +50,8 @@ pub fn lookup_ident(ident string) TokenType {
 	keywords['let'] = .tt_let
 	keywords['true'] = .tt_true
 	keywords['false'] = .tt_false
+	keywords['if'] = .tt_if
+	keywords['else'] = .tt_else
 	keywords['return'] = .tt_return
 
 	return keywords[ident] or { TokenType.tt_ident }

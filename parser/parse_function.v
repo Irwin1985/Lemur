@@ -12,7 +12,7 @@ fn (mut p Parser) parse_function_literal() &ast.Node {
 	p.expect(.tt_lparen, "expect '(' before function name.")
 	lit.parameters = p.parse_function_parameters()
 	lit.body = p.parse_block_statement()
-	println(lit.to_string())
+
 	return lit
 }
 

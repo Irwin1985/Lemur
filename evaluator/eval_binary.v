@@ -11,6 +11,7 @@ fn eval_binary(node ast.Binary, mut storage object.Storage) object.Object {
 	if right is object.RuntimeError {
 		return right
 	}
+	
 	if left is object.Integer && right is object.Integer {
 		match node.op {
 			"+" { return object.Integer{value: left.value + right.value} }

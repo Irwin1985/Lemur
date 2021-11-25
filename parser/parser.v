@@ -66,6 +66,7 @@ fn (mut p Parser) register_unary_functions() {
 	p.unary_fns[.tt_string] = parse_string		// STRING => "foo"
 	p.unary_fns[.tt_lparen] = parse_grouped_exp // LPAREN exp RPAREN
 	p.unary_fns[.tt_function] = parse_function_literal // fun(x, y)
+	p.unary_fns[.tt_if] = parse_if_expression // if () else ()
 }
 
 fn (mut p Parser) register_binary_functions() {
